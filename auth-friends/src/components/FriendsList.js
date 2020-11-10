@@ -12,9 +12,9 @@ class FriendsList extends React.Component {
   }
   getData = () => {
     axiosWithAuth()
-      .get('http://localhost:5000/api/friends')
+      .get('/friends')
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.setState({
           friends: res.data,
         });
@@ -36,12 +36,16 @@ class FriendsList extends React.Component {
     };
     return (
       <div>
+        <AddFriend addFriend={addFriend} />
         {this.state.friends.map((friend) => {
           return (
-            <div>{(friend.name, friend.age, friend.email, friend.id)}</div>
+            <div className="friends" key={friend.id}>
+              <p>Name: {friend.name}</p>
+              <p>Age: {friend.age}</p>
+              <p>Email: {friend.email}</p>
+            </div>
           );
         })}
-        <AddFriend addFriend={addFriend} />
       </div>
     );
   }
